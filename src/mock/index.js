@@ -7,6 +7,7 @@ createServer({
     this.namespace = 'api';
 
     this.get('/posts', () => {
+      //console.log('data', data);
       return data;
     });
   },
