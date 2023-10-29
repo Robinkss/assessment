@@ -8,12 +8,13 @@
     "@testing-library/user-event": "^13.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-error-overlay": "^6.0.9",
     "react-scripts": "4.0.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -36,6 +37,10 @@
     ]
   },
   "devDependencies": {
-    "miragejs": "^0.1.41"
+    "@types/node": "^20.8.9",
+    "@types/react": "^18.2.33",
+    "@types/react-dom": "^18.2.14",
+    "miragejs": "^0.1.41",
+    "typescript": "^5.2.2"
   }
 }

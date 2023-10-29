@@ -1,0 +1,31 @@
+
+.list-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: brown;
+    border-radius: 10px;
+    height: 600px;
+    width: 1000px;
+    margin-top: 5%;
+
+}
+
+.categoryFilter{
+    flex-basis: 10%;
+    background-color: brown;
+    
+}
+
+ul{    
+    flex-basis:90%;
+    overflow: auto;
+    border: 2px solid white;
+    width: 90%;
+    
+}
+
+ul>li{
+    border-bottom: 1.5px solid white;
+}
