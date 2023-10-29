@@ -7,8 +7,9 @@
     background-color: brown;
     border-radius: 10px;
     height: 600px;
-    width: 1000px;
+    width: 70%;
     margin-top: 5%;
+    padding: 10px 0;
 
 }
 
@@ -18,7 +19,7 @@
     
 }
 
-ul{    
+.posts-list{    
     flex-basis:90%;
     overflow: auto;
     border: 2px solid white;
@@ -26,6 +27,35 @@ ul{
     
 }
 
-ul>li{
+.posts-list>li{
     border-bottom: 1.5px solid white;
+    padding: 5px;
+}
+
+.load-button{
+    background-color: brown;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    width: 10%;
+}
+
+.load-button:hover{
+    background-color: white;
+    color: brown;
+    cursor: pointer;
+}
+
+.detail-link{
+    color: blue;
+    width: 10%;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.detail-link:hover{
+    text-decoration: underline;
+    color: white;
 }

@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import "../styles/postList.css";
+import "../interfaces/Post";
 
 
-interface Post {
-  id: string;
-  title: string;
-  categories: { id: string; name: string }[];
-  author: { name: string; avatar: string };
-  
-}
 
 function PostList() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all'); // Initial category filter
-  const [categories, setCategories] = useState<Set<string>>(new Set());
-  const [displayedPosts, setDisplayedPosts] = useState<Post[]>([]);
-  const [visiblePostsCount, setVisiblePostsCount] = useState<number>(5); // Nombre de posts à afficher à la fois
+  const [posts, setPosts] = useState<Post[]>([]); // All posts from the mock API
+  const [selectedCategory, setSelectedCategory] = useState<string>('all'); // Category selected in the filter
+  const [categories, setCategories] = useState<Set<string>>(new Set()); // All categories from the mock API
+  const [displayedPosts, setDisplayedPosts] = useState<Post[]>([]); // Posts to display after applying the category filter
+  const [visiblePostsCount, setVisiblePostsCount] = useState<number>(5); // number of posts to display by default
 
 
+  // fetch all categories from the mock API
   const fetchAllCategories = async () => {
     try {
       const response = await fetch('/api/posts');
       const data = await response.json();
-      let categoriesSet = new Set<string>(); //will contained all categories names
+      let categoriesSet = new Set<string>(); //will contained all categories names, set allows to avoid duplicates
       data["posts"].map((post:Post) => (
         post.categories.map(category =>(
           categoriesSet.add(category.name)
@@ -35,7 +30,7 @@ function PostList() {
     }
   }
 
-
+  // fetch all posts from the mock API
   const fetchData = async () => {
     try {
       const response = await fetch('/api/posts');
@@ -64,25 +59,23 @@ function PostList() {
     fetchData();
     fetchAllCategories();
   }, []); // Run only once on component mount
+
+  // Display a message if there are no posts
   if (posts.length === 0) {
     return <div>No posts to display.</div>;
   }
 
+  
+  // Load more posts when clicking on the button linked to this function
   const handleLoadMore = () => {
     setVisiblePostsCount(visiblePostsCount + 5); // Load 5 more posts
   }
   
 
-  const getGategoriesList = () => {
-    return Array.from(categories).map(category => 
-      <div>{category}</div>
-    )
-  }
 
   return (
     <div className='list-container'>
       <div className='categoryFilter'>
-          {/* {getGategoriesList()} */}
           <label htmlFor="filter">Filter by category:</label>
           <select name='filter' onChange={(e) => setSelectedCategory(e.target.value)}>    
             <option value="all">All</option>
@@ -91,12 +84,13 @@ function PostList() {
             )}
           </select>
       </div>
-      <ul>
+      <ul className='posts-list'>
       {selectedCategory === 'all'
         ? displayedPosts.slice(0, visiblePostsCount).map(post => (
             <li key={post.id}>
               <h2>Title: {post.title}</h2>
               <p>Author: {post.author.name}</p>
+              <Link to={`/${post.id}`} className='detail-link'>More details</Link>
             </li>
           ))
         : displayedPosts.slice(0, visiblePostsCount).map(post => {
@@ -109,6 +103,7 @@ function PostList() {
                   <li key={post.id}>
                     <h2>Title: {post.title}</h2>
                     <p>Author: {post.author.name}</p>
+                    <Link to={`/${post.id}`} className='detail-link'>More details</Link>
                   </li>
                 );
               }
@@ -117,7 +112,7 @@ function PostList() {
           })}
         </ul>
         {visiblePostsCount < displayedPosts.length && (
-          <button onClick={handleLoadMore}>Load more</button>
+          <button className='load-button' onClick={handleLoadMore}>Load more</button>
         )}
     </div>
     
