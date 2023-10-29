@@ -2,20 +2,29 @@ import React, { useEffect, useState } from 'react';
 
 import "../styles/postList.css";
 
+
+interface Post {
+  id: string;
+  title: string;
+  categories: { id: string; name: string }[];
+  author: { name: string; avatar: string };
+  
+}
+
 function PostList() {
-  const [posts, setPosts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all'); // Initial category filter
-  const [categories, setCategories] = useState(new Set());
-  const [displayedPosts, setDisplayedPosts] = useState([]);
-  const [visiblePostsCount, setVisiblePostsCount] = useState(5); // Nombre de posts à afficher à la fois
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all'); // Initial category filter
+  const [categories, setCategories] = useState<Set<string>>(new Set());
+  const [displayedPosts, setDisplayedPosts] = useState<Post[]>([]);
+  const [visiblePostsCount, setVisiblePostsCount] = useState<number>(5); // Nombre de posts à afficher à la fois
 
 
   const fetchAllCategories = async () => {
     try {
       const response = await fetch('/api/posts');
       const data = await response.json();
-      let categoriesSet = new Set(); //will contained all categories names
-      data["posts"].map(post => (
+      let categoriesSet = new Set<string>(); //will contained all categories names
+      data["posts"].map((post:Post) => (
         post.categories.map(category =>(
           categoriesSet.add(category.name)
         ))
@@ -74,7 +83,7 @@ function PostList() {
     <div className='list-container'>
       <div className='categoryFilter'>
           {/* {getGategoriesList()} */}
-          <label for="filter">Filter by category:</label>
+          <label htmlFor="filter">Filter by category:</label>
           <select name='filter' onChange={(e) => setSelectedCategory(e.target.value)}>    
             <option value="all">All</option>
             {categories && Array.from(categories).map(category => 
