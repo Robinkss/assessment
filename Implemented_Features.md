@@ -15,3 +15,4 @@ Additional Features :
 
 Use client-side routing to create a "detail" page.
 Convert the application to use TypeScript instead of JavaScript.
+Use a CSS preprocessor or CSS-in-JS rather than plain CSS.

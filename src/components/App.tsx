@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PostList from './PostList';
 import DetailedPost from './DetailedPost';
-import "../styles/app.css";
+import "../styles/app.scss";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "../interfaces/Post";
-import "../styles/detailedPost.css"
+import "../styles/detailedPost.scss"
 import { useParams, useLocation } from 'react-router-dom';
 
 function DetailedPost() {
